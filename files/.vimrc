@@ -13,11 +13,13 @@ set smarttab
 " Unindent with shift-tab
 inoremap <S-Tab> <C-D>
 
+" When pressing left arrow at the beginning of a line, go to end of prev line
+set whichwrap+=<,>,h,l,[,]
+
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
-
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -60,3 +62,10 @@ set clipboard=unnamedplus
 nnoremap <S-Tab> <<
 " shift-tab unindent for insert mode
 inoremap <S-Tab> <C-d>
+
+" Jump to search results automatically
+set incsearch
+" Highlight search results
+set hlsearch
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>

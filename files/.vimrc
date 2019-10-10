@@ -4,10 +4,11 @@ set number
 " Show cursor position (bottom right)
 set ruler
 
+" Spaces not tabs
 set expandtab
-set smarttab
 set shiftwidth=4
 set tabstop=4
+set smarttab
 
 " Unindent with shift-tab
 inoremap <S-Tab> <C-D>
@@ -55,3 +56,7 @@ endif " has("autocmd")
 " Use system clipboard (on Ubuntu, I needed to install vim-gtk for this to work)
 set clipboard=unnamedplus
 
+" shift-tab unindent for command mode
+nnoremap <S-Tab> <<
+" shift-tab unindent for insert mode
+inoremap <S-Tab> <C-d>

@@ -19,6 +19,7 @@ fish: $(FISH_CONFIG_PATH)
 git:
 	git config --global user.email "vaclav.volhejn@gmail.com"
 	git config --global user.name "Václav Volhejn"
+	git config --global core.editor "vim"
 
 general: git
 	$(package_manager) $(general_packages)

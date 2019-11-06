@@ -16,6 +16,9 @@ inoremap <S-Tab> <C-D>
 " When pressing left arrow at the beginning of a line, go to end of prev line
 set whichwrap+=<,>,h,l,[,]
 
+" Makes backspace work as in other programs (needed on Mac)
+set backspace=indent,eol,start
+
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
@@ -61,7 +64,8 @@ else
 endif " has("autocmd")
 
 " Use system clipboard (on Ubuntu, I needed to install vim-gtk for this to work)
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+set clipboard=unnamed
 
 " shift-tab unindent for command mode
 nnoremap <S-Tab> <<
@@ -74,3 +78,16 @@ set incsearch
 set hlsearch
 " Press Space to turn off highlighting and clear any message already displayed.
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+""""""""""""""""""" vim-plug section
+call plug#begin('~/.vim/plugged')
+Plug 'rhysd/vim-clang-format'
+call plug#end()
+
+""""""""""""""""""" clang-format
+
+let g:clang_format#style_options = {
+            \ "ColumnLimit" : 100,
+            \ "AllowShortLoopsOnASingleLine" : "false"}
+
+nmap <Leader>C :ClangFormatAutoToggle<CR>

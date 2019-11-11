@@ -21,6 +21,10 @@ git:
 	git config --global user.name "Václav Volhejn"
 	git config --global core.editor "vim"
 
+vim: ~/.vimrc
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 general: git
 	$(package_manager) $(general_packages)
 	@# Ripgrep

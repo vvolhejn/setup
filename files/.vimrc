@@ -87,7 +87,7 @@ call plug#end()
 """"""""""""""""""" clang-format
 
 let g:clang_format#style_options = {
-            \ "ColumnLimit" : 100,
+            \ "ColumnLimit" : 90,
             \ "AllowShortLoopsOnASingleLine" : "false"}
 
 nmap <Leader>C :ClangFormatAutoToggle<CR>

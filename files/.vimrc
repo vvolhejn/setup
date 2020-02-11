@@ -64,6 +64,7 @@ else
 endif " has("autocmd")
 
 " Use system clipboard (on Ubuntu, I needed to install vim-gtk for this to work)
+" unnamedplus seems to be the correct setting on Ubuntu
 " set clipboard=unnamedplus
 set clipboard=unnamed
 

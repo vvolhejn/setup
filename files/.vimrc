@@ -92,3 +92,8 @@ let g:clang_format#style_options = {
             \ "AllowShortLoopsOnASingleLine" : "false"}
 
 nmap <Leader>C :ClangFormatAutoToggle<CR>
+
+color monokai
+
+" Show completion options in things such as :e
+set wildmenu

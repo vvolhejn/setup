@@ -8,6 +8,7 @@ FISH_CONFIG_PATH=~/.config/fish/config.fish
 		echo "$@ already exists"; \
 	else \
 		echo "Creating $@"; \
+		mkdir -p $$(dirname $@); \
 		cp $< $@; \
 	fi
 

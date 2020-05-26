@@ -34,3 +34,7 @@ general: git
 	sudo dpkg -i ripgrep_11.0.2_amd64.deb
 	rm ripgrep_11.0.2_amd64.deb
 
+pip:
+	@# From https://pip.pypa.io/en/stable/installing/
+	curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+	sudo python3 /tmp/get-pip.py

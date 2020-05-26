@@ -1,5 +1,5 @@
 PACKAGE_MANAGER=sudo apt install
-GENERAL_PACKAGES=tree git vim fish curl
+GENERAL_PACKAGES=tree git vim fish curl tmux
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
 # Try `make ~/.vimrc`, `make ~/.config/fish/config.fish`
@@ -8,6 +8,7 @@ FISH_CONFIG_PATH=~/.config/fish/config.fish
 		echo "$@ already exists"; \
 	else \
 		echo "Creating $@"; \
+		mkdir -p $$(dirname $@); \
 		cp $< $@; \
 	fi
 

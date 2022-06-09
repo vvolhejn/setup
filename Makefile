@@ -1,5 +1,5 @@
 PACKAGE_MANAGER=sudo apt install
-GENERAL_PACKAGES=tree git vim fish curl tmux
+GENERAL_PACKAGES=tree git vim fish curl tmux wget htop
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
 # Try `make ~/.vimrc`, `make ~/.config/fish/config.fish`

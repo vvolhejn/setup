@@ -21,6 +21,7 @@ git:
 	git config --global user.email "vaclav.volhejn@gmail.com"
 	git config --global user.name "Václav Volhejn"
 	git config --global core.editor "vim"
+	git config --global pull.rebase false
 
 vim: ~/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -43,3 +44,9 @@ pip:
 	@# From https://pip.pypa.io/en/stable/installing/
 	curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
 	sudo python3 /tmp/get-pip.py
+
+miniconda:
+	curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh
+	bash /tmp/miniconda.sh
+	@# Automatically activate conda in fish
+	bash -c "conda init fish"

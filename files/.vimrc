@@ -55,6 +55,9 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif
 
+  " Use .ini syntax highlighting for .conf files as well.
+  autocmd BufRead,BufNewFile *.conf setf dosini
+
   augroup END
 
 else

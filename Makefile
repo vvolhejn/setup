@@ -1,5 +1,5 @@
 PACKAGE_MANAGER=sudo apt install
-GENERAL_PACKAGES=tree git vim fish curl tmux
+GENERAL_PACKAGES=tree git vim fish curl tmux wget htop
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
 # Try `make ~/.vimrc`, `make ~/.config/fish/config.fish`
@@ -35,6 +35,11 @@ general: git
 	sudo dpkg -i ripgrep_11.0.2_amd64.deb
 	rm ripgrep_11.0.2_amd64.deb
 
-# https://python-poetry.org/docs/#installing-with-the-official-installer
 poetry:
+	@# https://python-poetry.org/docs/#installing-with-the-official-installer
 	curl -sSL https://install.python-poetry.org | python3 -
+
+pip:
+	@# From https://pip.pypa.io/en/stable/installing/
+	curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+	sudo python3 /tmp/get-pip.py

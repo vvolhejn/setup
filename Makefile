@@ -35,3 +35,6 @@ general: git
 	sudo dpkg -i ripgrep_11.0.2_amd64.deb
 	rm ripgrep_11.0.2_amd64.deb
 
+# https://python-poetry.org/docs/#installing-with-the-official-installer
+poetry:
+	curl -sSL https://install.python-poetry.org | python3 -

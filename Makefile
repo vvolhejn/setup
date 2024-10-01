@@ -1,4 +1,11 @@
-PACKAGE_MANAGER=sudo apt install
+PACKAGE_MANAGER := $(shell ./detect_package_manager.sh)
+
+# Check if PACKAGE_MANAGER is empty
+ifeq ($(strip $(PACKAGE_MANAGER)),)
+$(error No supported package manager detected)
+endif
+
+PACKAGE_MANAGER_COMMAND=sudo $(PACKAGE_MANAGER) install
 GENERAL_PACKAGES=tree git vim fish curl tmux wget htop
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
@@ -13,7 +20,7 @@ FISH_CONFIG_PATH=~/.config/fish/config.fish
 	fi
 
 fish: $(FISH_CONFIG_PATH)
-	$(PACKAGE_MANAGER) fish
+	$(PACKAGE_MANAGER_COMMAND) fish
 	@# Fish shell as default
 	@# On CentOS (and Amazon Linux), chsh is not available.
 	@# Run: `sudo yum install util-linux-user` to get it.
@@ -32,12 +39,13 @@ vim: ~/.vimrc
 		https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim	
 
 general: git rg fd
-	$(package_manager) $(general_packages)
+	$(PACKAGE_MANAGER_COMMAND) $(GENERAL_PACKAGES)
 
 rg: # ripgrep
 	curl -L -o rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz
 	tar xzf rg.tar.gz
 	rm rg.tar.gz
+	mkdir -p ~/.local/bin
 	cp ripgrep-14.1.1-x86_64-unknown-linux-musl/rg ~/.local/bin/rg
 	rm -r ripgrep-14.1.1-x86_64-unknown-linux-musl
 	@echo 'rg should now be available if ~/.local/bin/ is in $$PATH'

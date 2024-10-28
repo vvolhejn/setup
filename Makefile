@@ -22,6 +22,7 @@ git:
 	git config --global user.name "Václav Volhejn"
 	git config --global core.editor "vim"
 	git config --global pull.rebase false
+	git config --global push.autoSetupRemote true
 
 vim: ~/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

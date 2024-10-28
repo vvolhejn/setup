@@ -1,4 +1,11 @@
-PACKAGE_MANAGER=sudo apt install
+PACKAGE_MANAGER := $(shell ./detect_package_manager.sh)
+
+# Check if PACKAGE_MANAGER is empty
+ifeq ($(strip $(PACKAGE_MANAGER)),)
+$(error No supported package manager detected)
+endif
+
+PACKAGE_MANAGER_COMMAND=sudo $(PACKAGE_MANAGER) install
 GENERAL_PACKAGES=tree git vim fish curl tmux wget htop
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
@@ -13,8 +20,10 @@ FISH_CONFIG_PATH=~/.config/fish/config.fish
 	fi
 
 fish: $(FISH_CONFIG_PATH)
-	$(PACKAGE_MANAGER) fish
+	$(PACKAGE_MANAGER_COMMAND) fish
 	@# Fish shell as default
+	@# On CentOS (and Amazon Linux), chsh is not available.
+	@# Run: `sudo yum install util-linux-user` to get it.
 	sudo chsh -s /usr/bin/fish "$$USER"
 
 git:
@@ -30,12 +39,28 @@ vim: ~/.vimrc
 	curl -fLo ~/.vim/colors/monokai.vim --create-dirs \
 		https://raw.githubusercontent.com/sickill/vim-monokai/master/colors/monokai.vim	
 
-general: git
-	$(package_manager) $(general_packages)
-	@# Ripgrep
-	curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-	sudo dpkg -i ripgrep_11.0.2_amd64.deb
-	rm ripgrep_11.0.2_amd64.deb
+general: git rg fd
+	$(PACKAGE_MANAGER_COMMAND) $(GENERAL_PACKAGES)
+
+rg: # ripgrep
+	curl -L -o rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz
+	tar xzf rg.tar.gz
+	rm rg.tar.gz
+	mkdir -p ~/.local/bin
+	cp ripgrep-14.1.1-x86_64-unknown-linux-musl/rg ~/.local/bin/rg
+	rm -r ripgrep-14.1.1-x86_64-unknown-linux-musl
+	@echo 'rg should now be available if ~/.local/bin/ is in $$PATH'
+
+
+fd: # fd-find
+	curl -L -o fd.tar.gz https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
+	tar xzf fd.tar.gz
+	rm fd.tar.gz
+	cp fd-v10.2.0-x86_64-unknown-linux-gnu/fd ~/.local/bin/fd
+	rm -r fd-v10.2.0-x86_64-unknown-linux-gnu
+	@echo 'fd should now be available if ~/.local/bin/ is in $$PATH'
+	
+
 
 poetry:
 	@# https://python-poetry.org/docs/#installing-with-the-official-installer

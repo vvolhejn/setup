@@ -3,6 +3,18 @@ Scripts for setting up a new workstation. Run `setup.sh` and then run `make [som
 
 The configuration is my personal preference and is not really designed for public use.
 
+## Setting up a Mac
+
+After installing Brew, you can install fish shell via `fish install brew`.
+But then the `brew` command doesn't work within the shell, which you can fix by adding the following to `config.fish`: ([link](https://github.com/orgs/Homebrew/discussions/4412#discussioncomment-7348762)):
+```sh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+iTerm2 settings can be imported from another computer, I don't think there is an account to automatically sync the settings. You just need to export them in advance.
+
+To install the `code` CLI command, run the "Shell Command: Install 'code' command in PATH" action from VSCode.
+
 ## LSF (`bsub`) and Python virtualenv
 
 ```

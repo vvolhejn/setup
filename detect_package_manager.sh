@@ -5,7 +5,13 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-package_managers=("apt" "yum" "brew" "dnf" "zypper" "pacman" "emerge" "apk")
+# Check if the script is running on a Mac
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "brew"
+    exit 0
+fi
+
+package_managers=("apt" "yum" "dnf" "zypper" "pacman" "emerge" "apk")
 
 for pm in "${package_managers[@]}"; do
     if command_exists "$pm"; then

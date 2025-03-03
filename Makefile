@@ -5,7 +5,13 @@ ifeq ($(strip $(PACKAGE_MANAGER)),)
 $(error No supported package manager detected)
 endif
 
+# Set PACKAGE_MANAGER_COMMAND based on the detected package manager
+ifeq ($(PACKAGE_MANAGER),brew)
+PACKAGE_MANAGER_COMMAND=$(PACKAGE_MANAGER) install
+else
 PACKAGE_MANAGER_COMMAND=sudo $(PACKAGE_MANAGER) install
+endif
+
 GENERAL_PACKAGES=tree git vim fish curl tmux wget htop
 FISH_CONFIG_PATH=~/.config/fish/config.fish
 
@@ -59,13 +65,13 @@ fd: # fd-find
 	cp fd-v10.2.0-x86_64-unknown-linux-gnu/fd ~/.local/bin/fd
 	rm -r fd-v10.2.0-x86_64-unknown-linux-gnu
 	@echo 'fd should now be available if ~/.local/bin/ is in $$PATH'
-	
-
 
 poetry:
 	@# https://python-poetry.org/docs/#installing-with-the-official-installer
 	curl -sSL https://install.python-poetry.org | python3 -
 
+# Not needed on Mac. Homebrew installs pip under `pip3`.
+# Very likely it'll be installed as a transitive dependency of some other package.
 pip:
 	@# From https://pip.pypa.io/en/stable/installing/
 	curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py

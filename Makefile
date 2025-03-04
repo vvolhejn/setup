@@ -5,6 +5,14 @@ ifeq ($(strip $(PACKAGE_MANAGER)),)
 $(error No supported package manager detected)
 endif
 
+# Detect if we are on macOS
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+IS_MAC := true
+else
+IS_MAC := false
+endif
+
 # Set PACKAGE_MANAGER_COMMAND based on the detected package manager
 ifeq ($(PACKAGE_MANAGER),brew)
 PACKAGE_MANAGER_COMMAND=$(PACKAGE_MANAGER) install
@@ -49,6 +57,9 @@ general: git rg fd
 	$(PACKAGE_MANAGER_COMMAND) $(GENERAL_PACKAGES)
 
 rg: # ripgrep
+ifeq ($(IS_MAC),true)
+	$(PACKAGE_MANAGER_COMMAND) ripgrep
+else
 	curl -L -o rg.tar.gz https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz
 	tar xzf rg.tar.gz
 	rm rg.tar.gz
@@ -56,15 +67,20 @@ rg: # ripgrep
 	cp ripgrep-14.1.1-x86_64-unknown-linux-musl/rg ~/.local/bin/rg
 	rm -r ripgrep-14.1.1-x86_64-unknown-linux-musl
 	@echo 'rg should now be available if ~/.local/bin/ is in $$PATH'
+endif
 
 
 fd: # fd-find
+ifeq ($(IS_MAC),true)
+	$(PACKAGE_MANAGER_COMMAND) fd
+else
 	curl -L -o fd.tar.gz https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
 	tar xzf fd.tar.gz
 	rm fd.tar.gz
 	cp fd-v10.2.0-x86_64-unknown-linux-gnu/fd ~/.local/bin/fd
 	rm -r fd-v10.2.0-x86_64-unknown-linux-gnu
 	@echo 'fd should now be available if ~/.local/bin/ is in $$PATH'
+endif
 
 poetry:
 	@# https://python-poetry.org/docs/#installing-with-the-official-installer

@@ -15,6 +15,10 @@ iTerm2 settings can be imported from another computer, I don't think there is an
 
 To install the `code` CLI command, run the "Shell Command: Install 'code' command in PATH" action from VSCode.
 
+Python seems to get installed automatically in Brew as a transitive dependency of other packages.
+It only installs `python3` and `pip3` executables. To get `python` and `pip`, you can do
+`fish_add_path /opt/homebrew/opt/python/libexec/bin` ([source](https://stackoverflow.com/questions/49704364/make-python3-as-my-default-python-on-mac)).
+
 ## LSF (`bsub`) and Python virtualenv
 
 ```

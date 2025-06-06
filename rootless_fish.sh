@@ -13,7 +13,7 @@ FISH_SHELL_VERSION=3.2.2
 # create our directories
 mkdir -p $HOME/.local $HOME/fish_shell_tmp
 cd $HOME/fish_shell_tmp
- 
+
 # download source files for Fish Shell
 wget http://github.com/fish-shell/fish-shell/releases/download/${FISH_SHELL_VERSION}/fish-${FISH_SHELL_VERSION}.tar.xz 
 
@@ -21,7 +21,7 @@ wget http://github.com/fish-shell/fish-shell/releases/download/${FISH_SHELL_VERS
 
 tar xvf fish-${FISH_SHELL_VERSION}.tar.xz
 cd fish-${FISH_SHELL_VERSION}
-mkdir build; cd build
+mkdir -p build; cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 # ./configure --prefix=$HOME/.local --disable-shared
 make

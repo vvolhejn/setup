@@ -46,6 +46,7 @@ git:
 	git config --global core.editor "vim"
 	git config --global pull.rebase false
 	git config --global push.autoSetupRemote true
+	git config --global init.defaultBranch main
 
 vim: ~/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
